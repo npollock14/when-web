@@ -9,6 +9,8 @@
 
 .main-container {
   display: flex;
+  flex-direction: row;
+  justify-content: center;
   min-height: 90vh;
   background-color: #d5e1ef;
 }
