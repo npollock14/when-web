@@ -1,0 +1,17 @@
+.header-button {
+  float: left;
+  width: 75px;
+  margin: 10px;
+  padding: 8px;
+  font-size: large;
+  background-color: white;
+  color: black;
+  font-weight: bold;
+  /* align-self: flex-end; */
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.header-button:hover {
+  background-color: lightgray;
+}
