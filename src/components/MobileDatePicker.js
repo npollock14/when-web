@@ -16,12 +16,6 @@ const monthNames = [
 ];
 
 const MobileDatePicker = ({ setDate, currDate, checkDate }) => {
-  function getButtons() {
-    let yearButtons = getYearButtons();
-    let monthButtons = getMonthButtons();
-    return monthButtons.concat(yearButtons);
-  }
-
   //returns a list of years from 1995 to the current year to use for buttons
   function getYearButtons() {
     let currentYear = new Date().getFullYear();
@@ -45,7 +39,7 @@ const MobileDatePicker = ({ setDate, currDate, checkDate }) => {
     }
     years.push(
       <button
-        className="year-selector button"
+        className="year-selector button enter"
         key={"enterBtn"}
         onClick={() => {
           console.log("Enter button clicked");
@@ -80,7 +74,12 @@ const MobileDatePicker = ({ setDate, currDate, checkDate }) => {
     return months;
   }
 
-  return <div className="keypad-container">{getButtons()}</div>;
+  return (
+    <div className="keypad-container">
+      <div className="month-button-container">{getMonthButtons()}</div>
+      <div className="year-button-container">{getYearButtons()}</div>
+    </div>
+  );
 };
 
 export default MobileDatePicker;

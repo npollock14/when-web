@@ -12,6 +12,24 @@
   padding: 3px;
 }
 
+.month-button-container {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.year-button-container {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
 .year-selector {
   padding-top: 20px;
   padding-bottom: 20px;
@@ -33,4 +51,8 @@
   color: white;
   border: 0;
   border-radius: 3px;
+}
+
+.selected {
+  background-color: rgb(129, 129, 129);
 }
