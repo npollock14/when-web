@@ -17,23 +17,23 @@ function App() {
   const [width, setWidth] = useState(window.innerWidth);
   const [gameOver, setGameOver] = useState(false);
   const [score, setScore] = useState("-1");
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     getRandomArticle();
   }, []);
 
   const getRandomArticle = async () => {
-    // const res = await fetch(
-    //   "https://us-central1-testproject-551de.cloudfunctions.net/getImage"
-    // );
-    // const resJson = await res.json();
-    // setArticleUrl(resJson["url"]);
-    // setDate(resJson["date"]);
-    // setDate(resJson["date"]);
-    setArticleUrl(
-      "https://firebasestorage.googleapis.com/v0/b/testproject-551de.appspot.com/o/Snapshots%2F20150103_nytimesmobile.png?alt=media&token=bed38c61-20aa-42af-9259-774ee5c1375a"
+    setLoaded(false);
+    const res = await fetch(
+      "https://us-central1-testproject-551de.cloudfunctions.net/getImage"
     );
-    let date = "20150103";
+    const resJson = await res.json();
+    setArticleUrl(resJson["url"]);
+    // setArticleUrl(
+    //   "https://firebasestorage.googleapis.com/v0/b/testproject-551de.appspot.com/o/Snapshots%2F20150103_nytimesmobile.png?alt=media&token=bed38c61-20aa-42af-9259-774ee5c1375a"
+    // );
+    let date = resJson["date"];
     //convert a date in YYYYMMDD format to a date object and set it as the date
     let newDate = new Date(
       date.substring(0, 4),
@@ -41,6 +41,7 @@ function App() {
       date.substring(6, 8)
     );
     setDate(newDate);
+    setLoaded(true);
     console.log("got an article");
   };
 
@@ -80,19 +81,25 @@ function App() {
     setGameOver(true);
   }
 
+  function resetAll(){
+    getRandomArticle();
+    setGameOver(false);
+
+  }
+
   const isMobile = width <= 500;
 
   return (
     <div className="App">
       <Header mobile={isMobile} />
       <div className="main-container">
-        <ArticleViewer dateSetter={setDate} articleUrl={articleUrl} />
+        {loaded ? <ArticleViewer dateSetter={setDate} articleUrl={articleUrl} /> : <h1>Loading...</h1> }
         <MobileDatePicker
           setDate={setCurrDate}
           currDate={currDate}
           checkDate={checkDate}
         />
-        {gameOver ? <ScoreScreen score={score} /> : null}
+        {gameOver ? <ScoreScreen score={score} resetAll={resetAll} /> : null}
       </div>
       <Footer />
     </div>
