@@ -5,11 +5,7 @@ import Footer from "./components/Footer";
 import DatePicker from "./components/DatePicker";
 import MobileDatePicker from "./components/MobileDatePicker";
 import { useState, useEffect } from "react";
-import ReactGA from "react-ga";
 import ScoreScreen from "./components/ScoreScreen";
-const TRACKING_ID = "G-9C69JCJHW1"; // YOUR_OWN_TRACKING_ID
-ReactGA.initialize(TRACKING_ID);
-ReactGA.pageview(window.location.pathname + window.location.search);
 
 function App() {
   const [date, setDate] = useState(-1);
@@ -82,10 +78,9 @@ function App() {
     setGameOver(true);
   }
 
-  function resetAll(){
+  function resetAll() {
     getRandomArticle();
     setGameOver(false);
-
   }
 
   const isMobile = width <= 500;
@@ -94,7 +89,11 @@ function App() {
     <div className="App">
       <Header mobile={isMobile} />
       <div className="main-container">
-        {loaded ? <ArticleViewer dateSetter={setDate} articleUrl={articleUrl} /> : <h1>Loading...</h1> }
+        {loaded ? (
+          <ArticleViewer dateSetter={setDate} articleUrl={articleUrl} />
+        ) : (
+          <h1>Loading...</h1>
+        )}
         <MobileDatePicker
           setDate={setCurrDate}
           currDate={currDate}
