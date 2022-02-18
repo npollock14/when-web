@@ -9,6 +9,7 @@ import ReactGA from "react-ga";
 import ScoreScreen from "./components/ScoreScreen";
 const TRACKING_ID = "G-9C69JCJHW1"; // YOUR_OWN_TRACKING_ID
 ReactGA.initialize(TRACKING_ID);
+ReactGA.pageview(window.location.pathname + window.location.search);
 
 function App() {
   const [date, setDate] = useState(-1);
