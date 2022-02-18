@@ -18,6 +18,11 @@ const monthNames = [
 ];
 
 const DatePicker = () => {
+  const [date, setDate] = useState([
+    new Date().getFullYear(),
+    new Date().getMonth(),
+    new Date().getDate(),
+  ]);
   const [year, setYear] = useState(new Date().getFullYear());
   const [month, setMonth] = useState(new Date().getMonth());
   const [day, setDay] = useState(new Date().getDate());
@@ -25,11 +30,7 @@ const DatePicker = () => {
 
   const getYears = () => {
     let years = [];
-    for (
-      let i = new Date().getFullYear() - 30;
-      i <= new Date().getFullYear();
-      i++
-    ) {
+    for (let i = 1990; i <= new Date().getFullYear(); i++) {
       years.push(i);
     }
     return years;
@@ -39,7 +40,7 @@ const DatePicker = () => {
     return new Date(year, month, 0).getDate();
   }
 
-  function getDays() {
+  function getDays(month, year) {
     let days = [];
     for (let i = 1; i <= daysInMonth(month, year); i++) {
       days.push(i);
@@ -83,7 +84,7 @@ const DatePicker = () => {
         });
         break;
       case 2:
-        buttons = getDays().map((day, index) => {
+        buttons = getDays(month, year).map((day, index) => {
           return (
             <button
               className="date-selector"

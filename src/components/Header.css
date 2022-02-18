@@ -2,8 +2,10 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: center;
   width: 100%;
   background-color: #111111;
+  border-bottom: grey solid 3px;
 }
 
 .main-title {
@@ -13,4 +15,9 @@
   margin-right: 35px;
   margin-left: 35px;
   cursor: pointer;
+}
+
+.mobile {
+  font-size: 2em;
+  margin: 0px;
 }
