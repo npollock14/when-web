@@ -1,7 +1,7 @@
 .keypad-container {
   display: flex;
   flex-wrap: wrap;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   position: fixed;
@@ -17,7 +17,7 @@
   flex-direction: row;
   columns: 12;
   width: 100%;
-  
+  max-width: 600px;
 }
 
 .year-button-container {
@@ -27,4 +27,5 @@
   justify-content: center;
   align-items: center;
   width: 100%;
+  max-width: 600px;
 }

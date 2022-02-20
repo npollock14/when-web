@@ -8,7 +8,7 @@ import { useState, useEffect } from "react";
 import ScoreScreen from "./components/ScoreScreen";
 
 function App() {
-  const [date, setDate] = useState(-1);
+  const [date, setDate] = useState(new Date());
   const [currDate, setCurrDate] = useState(new Date());
   const [articleUrl, setArticleUrl] = useState("");
   const [width, setWidth] = useState(window.innerWidth);
@@ -80,10 +80,12 @@ function App() {
 
   function resetAll() {
     getRandomArticle();
+    document.body.scrollTop = 0; // For Safari
+    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
     setGameOver(false);
   }
 
-  const isMobile = width <= 500;
+  const isMobile = width <= 600;
 
   return (
     <div className="App">
