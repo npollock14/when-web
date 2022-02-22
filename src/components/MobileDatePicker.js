@@ -17,11 +17,11 @@ const monthNames = [
   "Dec",
 ];
 
-const MobileDatePicker = ({ setDate, currDate, checkDate }) => {
+const MobileDatePicker = ({ setDate, guessDate, checkDate }) => {
   //returns a list of years from 1995 to the current year to use for buttons
   function getYearButtons() {
     function yearSetter(index) {
-      let newDate = new Date(currDate);
+      let newDate = new Date(guessDate);
       newDate.setFullYear(index);
       setDate(newDate);
     }
@@ -35,7 +35,7 @@ const MobileDatePicker = ({ setDate, currDate, checkDate }) => {
           text={i.toString().substring(2, 4)}
           index={i}
           setDate={yearSetter}
-          styleArg={currDate.getFullYear() === i ? " selected" : ""}
+          styleArg={guessDate.getFullYear() === i ? " selected" : ""}
         />
       );
     }
@@ -58,7 +58,7 @@ const MobileDatePicker = ({ setDate, currDate, checkDate }) => {
     let months = [];
 
     function monthSetter(index) {
-      let newDate = new Date(currDate);
+      let newDate = new Date(guessDate);
       newDate.setMonth(index);
       setDate(newDate);
     }
@@ -70,7 +70,7 @@ const MobileDatePicker = ({ setDate, currDate, checkDate }) => {
           text={monthNames[i]}
           index={i}
           setDate={monthSetter}
-          styleArg={"month" + (currDate.getMonth() === i ? " selected" : "")}
+          styleArg={"month" + (guessDate.getMonth() === i ? " selected" : "")}
         />
       );
     }

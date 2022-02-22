@@ -18,7 +18,7 @@ ReactGA.initialize(
 
 function App() {
   const [date, setDate] = useState(new Date());
-  const [currDate, setCurrDate] = useState(new Date());
+  const [guessDate, setGuessDate] = useState(new Date());
   const [articleUrl, setArticleUrl] = useState("");
   const [width, setWidth] = useState(window.innerWidth);
   const [gameOver, setGameOver] = useState(false);
@@ -65,13 +65,13 @@ function App() {
   }, []);
 
   function checkDate() {
-    //get the time between dates in years and months
-    let timeDiff = Math.abs(date.getTime() - currDate.getTime());
-    let diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
-    //use diffDays to determine how many years and months
-    let years = Math.floor(diffDays / 365);
-    let months = Math.floor((diffDays % 365) / 30);
-    let monthsOff = Math.floor((diffDays / 365) * 12);
+    //get how many months difference there is between the current date and the date of the article
+    let monthsOff =
+      (date.getFullYear() - guessDate.getFullYear()) * 12 -
+      guessDate.getMonth() +
+      date.getMonth();
+
+    console.log(monthsOff);
 
     ReactGA.event({
       category: "User",
@@ -80,29 +80,35 @@ function App() {
       value: monthsOff,
     });
 
-    //if the difference is less than a month, log "You Won"
-    let scoreString = "";
-    if (diffDays < 31) {
-      console.log("You Won");
-      scoreString = "Perfect!";
-    } else {
-      console.log(
-        "You were " +
-          (years > 0 ? years + " years " : "") +
-          months +
-          " months off"
-      );
-      scoreString =
-        (years > 0 ? years + " years " : "") + months + " months off";
-    }
-    setScore(scoreString);
+    setScore(genScoreString(monthsOff));
     setGameOver(true);
+  }
+
+  function genScoreString(monthsOff) {
+    if (monthsOff === 0) return "Perfect!";
+    let years = Math.abs(Math.floor(monthsOff / 12));
+    let months = Math.abs(monthsOff % 12);
+
+    let scoreString = "";
+    //create a score string x year(s) and x month(s) early/late
+    if (years !== 0) {
+      scoreString += years + " year" + (years > 1 ? "s" : "") + " ";
+    }
+    if (months !== 0) {
+      scoreString += months + " month" + (months > 1 ? "s" : "") + " ";
+    }
+    if (monthsOff < 0) {
+      scoreString += "late";
+    } else {
+      scoreString += "early";
+    }
+    return scoreString;
   }
 
   function resetAll() {
     getRandomArticle();
-    document.body.scrollTop = 0; // For Safari
-    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
     setGameOver(false);
   }
 
@@ -118,14 +124,14 @@ function App() {
           <h1>Loading...</h1>
         )}
         <MobileDatePicker
-          setDate={setCurrDate}
-          currDate={currDate}
+          setDate={setGuessDate}
+          guessDate={guessDate}
           checkDate={checkDate}
         />
         {gameOver ? (
           <ScoreScreen
             score={score}
-            currDate={currDate}
+            currDate={guessDate}
             actualDate={date}
             resetAll={resetAll}
           />
