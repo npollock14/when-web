@@ -6,6 +6,15 @@ import DatePicker from "./components/DatePicker";
 import MobileDatePicker from "./components/MobileDatePicker";
 import { useState, useEffect } from "react";
 import ScoreScreen from "./components/ScoreScreen";
+import ReactGA from "react-ga";
+ReactGA.initialize(
+  [
+    {
+      trackingId: "UA-221035040-1",
+    },
+  ],
+  { debug: false }
+);
 
 function App() {
   const [date, setDate] = useState(new Date());
@@ -17,9 +26,11 @@ function App() {
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
+    ReactGA.pageview(window.location.pathname + window.location.search);
     getRandomArticle();
   }, []);
 
+  //gets a random article from the my api
   const getRandomArticle = async () => {
     setLoaded(false);
     const res = await fetch(
@@ -31,6 +42,7 @@ function App() {
     //   "https://firebasestorage.googleapis.com/v0/b/testproject-551de.appspot.com/o/Snapshots%2F20150103_nytimesmobile.png?alt=media&token=bed38c61-20aa-42af-9259-774ee5c1375a"
     // );
     let date = resJson["date"];
+
     //convert a date in YYYYMMDD format to a date object and set it as the date
     let newDate = new Date(
       date.substring(0, 4),
@@ -59,11 +71,20 @@ function App() {
     //use diffDays to determine how many years and months
     let years = Math.floor(diffDays / 365);
     let months = Math.floor((diffDays % 365) / 30);
+    let monthsOff = Math.floor((diffDays / 365) * 12);
+
+    ReactGA.event({
+      category: "User",
+      action: "Guessed Date",
+      //value should be the date with the format Month Year
+      value: monthsOff,
+    });
+
     //if the difference is less than a month, log "You Won"
     let scoreString = "";
     if (diffDays < 31) {
       console.log("You Won");
-      scoreString = "You Won";
+      scoreString = "Perfect!";
     } else {
       console.log(
         "You were " +
@@ -101,9 +122,15 @@ function App() {
           currDate={currDate}
           checkDate={checkDate}
         />
-        {gameOver ? <ScoreScreen score={score} resetAll={resetAll} /> : null}
+        {gameOver ? (
+          <ScoreScreen
+            score={score}
+            currDate={currDate}
+            actualDate={date}
+            resetAll={resetAll}
+          />
+        ) : null}
       </div>
-      <Footer />
     </div>
   );
 }

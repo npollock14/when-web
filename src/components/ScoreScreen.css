@@ -26,3 +26,13 @@
   height: 100%;
   opacity: 0;
 }
+
+.score {
+  color: tan;
+  margin-top: 0px;
+}
+
+.try-again {
+  position: fixed;
+  bottom: 0;
+}
