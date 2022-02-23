@@ -91,12 +91,17 @@ function App() {
 
     let scoreString = "";
     //create a score string x year(s) and x month(s) early/late
-    if (years !== 0) {
-      scoreString += years + " year" + (years > 1 ? "s" : "") + " ";
-    }
-    if (months !== 0) {
-      scoreString += months + " month" + (months > 1 ? "s" : "") + " ";
-    }
+    // if (years !== 0) {
+    //   scoreString += years + " year" + (years > 1 ? "s" : "") + " ";
+    // }
+    // if (months !== 0) {
+    //   scoreString += months + " month" + (months > 1 ? "s" : "") + " ";
+    // }
+    scoreString +=
+      Math.abs(monthsOff) +
+      " month" +
+      (Math.abs(monthsOff) > 1 ? "s" : "") +
+      " ";
     if (monthsOff < 0) {
       scoreString += "late";
     } else {
