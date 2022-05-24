@@ -1,0 +1,41 @@
+.about {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top:300px;
+    left:50%;
+    width:700px;  /* adjust as per your needs */
+    height: 374px;   /* adjust as per your needs */
+    margin-left:-350px;   /* negative half of width above */
+    margin-top:-187px;   /* negative half of height above */
+    background-color: #111111F5;
+    border-radius: 15px;
+    z-index: 1;
+
+}
+
+p {
+    color: white;
+    font-size: 20px;
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+#popup-text {
+    text-align: center;
+    padding: 0px;
+}
+
+.got-it {
+    align-self: center;
+    width: 100px;
+    height: 50px;
+    bottom: 10px;
+    font-size: 20px;
+    color: rgb(255, 255, 255);
+    background-color: rgb(81, 141, 81);
+    cursor: pointer;
+    border-radius: 7px;
+}

@@ -48,7 +48,7 @@ const MobileDatePicker = ({ setDate, guessDate, checkDate }) => {
           checkDate();
         }}
       >
-        {"Enter"}
+        {"GUESS"}
       </button>
     );
     return years;

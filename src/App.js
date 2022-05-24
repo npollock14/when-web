@@ -1,5 +1,6 @@
 import "./App.css";
 import Header from "./components/Header";
+import AboutMenu from "./components/AboutMenu";
 import ArticleViewer from "./components/ArticleViewer";
 import Footer from "./components/Footer";
 import DatePicker from "./components/DatePicker";
@@ -24,6 +25,7 @@ function App() {
   const [gameOver, setGameOver] = useState(false);
   const [score, setScore] = useState("-1");
   const [loaded, setLoaded] = useState(false);
+  const [about, setAbout] = useState(true);
 
   useEffect(() => {
     ReactGA.pageview(window.location.pathname + window.location.search);
@@ -38,9 +40,6 @@ function App() {
     );
     const resJson = await res.json();
     setArticleUrl(resJson["url"]);
-    // setArticleUrl(
-    //   "https://firebasestorage.googleapis.com/v0/b/testproject-551de.appspot.com/o/Snapshots%2F20150103_nytimesmobile.png?alt=media&token=bed38c61-20aa-42af-9259-774ee5c1375a"
-    // );
     let date = resJson["date"];
 
     //convert a date in YYYYMMDD format to a date object and set it as the date
@@ -121,7 +120,8 @@ function App() {
 
   return (
     <div className="App">
-      <Header mobile={isMobile} />
+      <Header mobile={isMobile} about={about} setAbout={setAbout} />
+      {about && !isMobile ? <AboutMenu setAbout={setAbout} /> : null}
       <div className="main-container">
         {loaded ? (
           <ArticleViewer dateSetter={setDate} articleUrl={articleUrl} />

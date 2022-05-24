@@ -1,25 +1,38 @@
 import React from "react";
 import "./Header.css";
-import HeaderButton from "./HeaderButton";
 
-const Header = ({ mobile }) => {
+const Header = ({ mobile, setAbout, about }) => {
   return (
     <div className="header-container">
       <h1 className={"main-title " + (mobile ? "mobile" : "")}>When Web</h1>
-      {getButtons(mobile)}
+      <h3 className="betaText">Beta</h3>
+      {getButtons(mobile, setAbout, about)}
     </div>
   );
 };
 
-function getButtons(isMobile) {
+function getButtons(isMobile, setAbout, about) {
   if (isMobile) {
     return <div className="header-buttons-container"></div>;
   } else {
     return (
       <div className="header-buttons-container">
-        <HeaderButton text="Home" />
-        <HeaderButton text="Modes" />
-        <HeaderButton text="About" />
+        <button
+          className="header-button"
+          onClick={() => {
+            window.location.href = "/";
+          }}
+        >
+          Home
+        </button>
+        <button
+          className="header-button"
+          onClick={() => {
+            setAbout(!about);
+          }}
+        >
+          About
+        </button>
       </div>
     );
   }
